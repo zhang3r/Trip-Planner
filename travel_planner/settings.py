@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'travel_planner_app.apps.TravelPlannerConfig',
 ]
 
 MIDDLEWARE_CLASSES = [
