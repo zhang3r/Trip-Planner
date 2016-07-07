@@ -12,6 +12,7 @@ class Trip(models.Model):
 class City(models.Model):
 	trip = models.ForeignKey(Trip, on_delete=models.CASCADE)
 	city_name = models.CharField(max_length=200)
+	city_date = models.models.DateTimeField('date of arrival')
 	city_latitude =  models.DecimalField(decimal_places=3, max_digits=10)
 	city_longitude = models.DecimalField(decimal_places=3, max_digits=10)
 

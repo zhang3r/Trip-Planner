@@ -1,0 +1,9 @@
+
+
+{% if list_city %}
+	<ul>
+	{% for city in list_city %}
+		<li><span>{{city.city_name}}</span></li>
+	{% endfor %}
+	</ul>
+{% endif %}
