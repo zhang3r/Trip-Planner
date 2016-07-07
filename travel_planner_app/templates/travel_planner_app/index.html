@@ -1,4 +1,6 @@
 
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'travel_planner_app/css/style.css' %}" />
 
 {% if list_city %}
 	<ul>
@@ -6,4 +8,8 @@
 		<li><span>{{city.city_name}}</span></li>
 	{% endfor %}
 	</ul>
+{% else %}
+<ul>
+	<li><span>nothing to show</span></li>
+</ul>
 {% endif %}
