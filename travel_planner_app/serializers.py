@@ -2,9 +2,10 @@ from rest_framework import serializers
 from travel_planner_app.models import City
 from travel_planner_app.models import Trip
 from datetime import date
-
+from django.contrib.auth.models import User
 
 class CitySerializer(serializers.Serializer):
+	owner = serializers.ReadOnlyField(source='owner.username')
 	pk = serializers.IntegerField(read_only=True)
 	city_name = serializers.CharField(required=True, max_length=200)
 	city_date = serializers.DateField( default=date.today)
@@ -30,6 +31,12 @@ class CitySerializer(serializers.Serializer):
 		instance.save()
 		return instance
 
+class UserSerializer(serializers.ModelSerializer):
+	cities = serializers.PrimaryKeyRelatedField(many=True, queryset=City.objects.all())
+
+	class Meta:
+		model=User
+		fields=('id','username','cities')
 
 class TripSerializer(serializers.ModelSerializer):
 	class Meta:

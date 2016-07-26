@@ -12,6 +12,11 @@ from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework import mixins
 from rest_framework import generics
+from django.contrib.auth.models import User
+from .serializers import UserSerializer
+
+from rest_framework import permissions
+
 
 def index(request):
 	list_city = City.objects.order_by('-city_date')
@@ -92,6 +97,19 @@ def index(request):
 # 	def post(self,request, *args, **kwargs):
 # 		return self.create(request, *args, **kwargs)
 
-class CityList(generics.ListcreateAPIView):
+class CityList(generics.ListCreateAPIView):
 	queryset = City.objects.all()
 	serializer_class = CitySerializer
+	permission_class = (permissions.IsAuthenticatedOrReadOnly,)
+
+	def perform_create(self, serializer):
+		serializer.save(owner=self.request.user)
+
+
+class UserList(generics.ListAPIView):
+	queryset=User.objects.all()
+	serializer_class = UserSerializer
+
+class UserDetail(generics.RetrieveAPIView):
+	queryset=User.objects.all()
+	serializer_class=UserSerializer

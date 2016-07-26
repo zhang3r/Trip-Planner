@@ -11,13 +11,17 @@ class Trip(models.Model):
 
 class City(models.Model):
 	# trip = models.ForeignKey(Trip, on_delete=models.CASCADE)
+	owner = models.ForeignKey('auth.User', related_name='cities')
 	city_name = models.CharField(max_length=200)
 	city_date = models.DateField(default=date.today)
 	city_latitude =  models.DecimalField(decimal_places=3, max_digits=10)
 	city_longitude = models.DecimalField(decimal_places=3, max_digits=10)
 
+	def save(self, *args, **kwargs):
+		super(City, self).save(*args,**kwargs)
+
 	class Meta:
-		ordering = ('city_date',)
+		ordering = ('city_date','owner')
 
 
 class Flight(models.Model):
