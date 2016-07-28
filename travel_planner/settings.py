@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'travel_planner_app.apps.TravelPlannerConfig',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -113,6 +114,10 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+REST_FRAMEWORK = {
+    'PAGE_SIZE': 10
+}
 
 
 # Static files (CSS, JavaScript, Images)
