@@ -14,7 +14,8 @@ from rest_framework import mixins
 from rest_framework import generics
 from django.contrib.auth.models import User
 from .serializers import UserSerializer
-
+from rest_framework.response import Response
+from rest_framework.reverse import reverse
 from rest_framework import permissions
 
 
@@ -113,3 +114,11 @@ class UserList(generics.ListAPIView):
 class UserDetail(generics.RetrieveAPIView):
 	queryset=User.objects.all()
 	serializer_class=UserSerializer
+
+
+@api_view(['GET'])
+def api_root(request, format=None):
+	return Response({
+		'users': reverse('user-list',m request=request, format=format),
+		'cities': reverse('city-list', request=request, format=format)
+		})
